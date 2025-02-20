@@ -1,10 +1,24 @@
 #!/bin/bash
-#SBATCH --job-name=deepseek_inference
-#SBATCH --nodes=1
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=16
-#SBATCH --time=01:00:00
-#SBATCH --output=output.log
+#SBATCH -N 1
+#SBATCH --partition=workq
+#SBATCH -J Inference-Test
+#SBATCH --mail-user=osama.dabbousi@kaust.edu.sa
+#SBATCH --mail-type=ALL
+#SBATCH -A k?????
+#SBATCH -t 01:00:00
 
-source venv/bin/activate
-deepspeed --num_cpus=16 inference.py --deepspeed ds_config.json
+#OpenMP settings:
+export OMP_NUM_THREADS=1
+
+ls .
+
+#run the application:
+srun --hint=nomultithread \
+     --ntasks=192 \
+     --ntasks-per-node=192 \
+     --ntasks-per-socket=96 \
+     --cpus-per-task=1 \
+     --ntasks-per-core=1 \
+     --mem-bind=v,local \
+     --cpu-bind=threads \
+     deepspeed --num_cpus=192 inference.py --deepspeed ds_config.json
