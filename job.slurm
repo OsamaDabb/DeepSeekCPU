@@ -7,7 +7,7 @@
 #SBATCH -t 01:00:00
 
 #OpenMP settings:
-export OMP_NUM_THREADS=1
+export OMP_NUM_THREADS=192
 
 module load python
 module load mysw
@@ -21,4 +21,4 @@ srun --hint=nomultithread \
      --ntasks-per-core=1 \
      --mem-bind=v,local \
      --cpu-bind=threads \
-     deepspeed --num_cpus=192 inference.py --deepspeed ds_config.json
+     deepspeed --num_nodes=1 --num_gpus=0 inference.py --deepspeed ds_config.json
