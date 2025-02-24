@@ -1,10 +1,9 @@
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH --partition=workq
 #SBATCH -J Inference-Test
 #SBATCH --mail-user=osama.dabbousi@kaust.edu.sa
 #SBATCH --mail-type=ALL
-#SBATCH -A k?????
+#SBATCH -A s10002
 #SBATCH -t 01:00:00
 
 #OpenMP settings:

@@ -1,7 +1,7 @@
 import deepspeed
 from transformers import AutoTokenizer, AutoModelForCausalLM
 
-model_path = "/path/to/deepseek-llm-7b-chat"
+model_path = "deepseek-ai/deepseek-llm-7b-chat"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 model = AutoModelForCausalLM.from_pretrained(
