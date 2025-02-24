@@ -4,7 +4,7 @@
 
 source $MY_SW/miniconda3-amd64/bin/activate
 
-conda activate $MY_SW/envs/deepspeed
+conda activate $MY_SW/envs/deepseek
 
 conda install conda-forge::deepspeed
 conda install conda-forge::transformers

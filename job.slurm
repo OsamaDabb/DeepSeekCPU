@@ -9,7 +9,8 @@
 #OpenMP settings:
 export OMP_NUM_THREADS=1
 
-ls .
+module load python
+module load mysw
 
 #run the application:
 srun --hint=nomultithread \
