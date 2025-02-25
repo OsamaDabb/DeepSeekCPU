@@ -11,6 +11,7 @@ export OMP_NUM_THREADS=1
 
 module load python
 module load mysw
+module load pytorch
 
 #run the application:
 srun --hint=nomultithread \
