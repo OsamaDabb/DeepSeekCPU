@@ -6,6 +6,8 @@ import torch
 model_path = "/scratch/reference/ai/models/LLMs/deepseek-r1"
 cache_dir = "/project/s10002/model"
 
+print("Gloo available:", dist.is_gloo_available())
+
 # Load tokenizer (tokenizers don't need to be on a device)
 tokenizer = AutoTokenizer.from_pretrained(model_path, cache_dir=cache_dir, trust_remote_code=True)
 

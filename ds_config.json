@@ -15,5 +15,8 @@
   },
   "fp16": {
       "enabled": false
+  },
+  "distributed": {
+    "backend": "gloo"
   }
 }

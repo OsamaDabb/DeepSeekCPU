@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -N 1
+#SBATCH -N 8
 #SBATCH -J Inference-Test
 #SBATCH --mail-user=osama.dabbousi@kaust.edu.sa
 #SBATCH --mail-type=NONE
@@ -17,6 +17,6 @@ module load pytorch
 srun --hint=nomultithread \
      --ntasks=1 \
      --cpus-per-task=192 \
-     --mem=2.2TB \
+     --mem=300GB \
      --cpu-bind=threads \
-     deepspeed --num_gpus 0 inference.py --deepspeed ds_config.json
+     deepspeed --num_gpus 0 --num_nodes 8 inference.py --deepspeed ds_config.json
