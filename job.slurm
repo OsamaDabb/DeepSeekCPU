@@ -6,14 +6,23 @@
 #SBATCH -A s10002
 #SBATCH -t 01:00:00
 
-#OpenMP settings:
+# OpenMP settings:
 export OMP_NUM_THREADS=1
 
+# Load necessary modules
 module load python
 module load mysw
 module load pytorch
 
-#run the application:
+# Set MASTER_ADDR and MASTER_PORT for multi-node communication
+export MASTER_ADDR=$(scontrol show hostname $SLURM_NODELIST | head -n 1)
+export MASTER_PORT=29500  # Choose an unused port
+
+# Debug: Print assigned nodes
+echo "Master Node: $MASTER_ADDR"
+echo "Node List: $(scontrol show hostname $SLURM_NODELIST)"
+
+# Run the application with multi-node DeepSpeed
 srun --hint=nomultithread \
      --ntasks=8 \
      --cpus-per-task=192 \
