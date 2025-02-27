@@ -2,7 +2,7 @@ import deepspeed
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch.distributed as dist
 
-model_path = "deepseek-ai/deepseek-llm-7b-chat"
+model_path = "/scratch/reference/ai/models/LLMs/deepseek-r1"
 cache_dir = "/project/s10002/model"
 
 tokenizer = AutoTokenizer.from_pretrained(model_path, cache_dir=cache_dir)
