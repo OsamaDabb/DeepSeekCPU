@@ -15,9 +15,7 @@ module load pytorch
 
 #run the application:
 srun --hint=nomultithread \
-     --ntasks=1 \ 
-     --cpus-per-task=4 \  # Adjust based on CPU cores per socket
-     --mem-bind=local \
+     --ntasks=1 \
+     --cpus-per-task=96 \
      --cpu-bind=threads \
      deepspeed --num_gpus 0 inference.py --deepspeed ds_config.json
-
