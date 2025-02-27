@@ -15,7 +15,7 @@ module load pytorch
 
 #run the application:
 srun --hint=nomultithread \
-     --ntasks=1 \
+     --ntasks=8 \
      --cpus-per-task=192 \
      --mem=300GB \
      --cpu-bind=threads \
