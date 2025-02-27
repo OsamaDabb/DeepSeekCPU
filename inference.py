@@ -5,7 +5,7 @@ from torch import device
 
 model_path = "/scratch/reference/ai/models/LLMs/deepseek-r1"
 cache_dir = "/project/s10002/model"
-cpu_device = torch.device("cpu")
+cpu_device = device("cpu")
 
 tokenizer = AutoTokenizer.from_pretrained(model_path, cache_dir=cache_dir, trust_remote_code=True).to(cpu_device)
 model = AutoModelForCausalLM.from_pretrained(
