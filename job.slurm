@@ -2,7 +2,7 @@
 #SBATCH -N 1
 #SBATCH -J Inference-Test
 #SBATCH --mail-user=osama.dabbousi@kaust.edu.sa
-#SBATCH --mail-type=ALL
+#SBATCH --mail-type=NONE
 #SBATCH -A s10002
 #SBATCH -t 01:00:00
 
@@ -17,5 +17,6 @@ module load pytorch
 srun --hint=nomultithread \
      --ntasks=1 \
      --cpus-per-task=96 \
+     --mem=256GB
      --cpu-bind=threads \
      deepspeed --num_gpus 0 inference.py --deepspeed ds_config.json
