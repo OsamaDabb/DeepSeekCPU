@@ -35,7 +35,7 @@ srun --hint=nomultithread \
      --cpus-per-task=192 \
      --mem=300GB \
      --cpu-bind=threads \
-     deepspeed --hostfile=hostfile --no-ssh \
+     deepspeed --hostfile=hostfile --no_ssh \
      --num_nodes=8 --node_rank=$NODE_RANK \
      --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT \
      inference.py --deepspeed ds_config.json
