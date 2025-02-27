@@ -19,7 +19,7 @@ export MASTER_ADDR=$(scontrol show hostname $SLURM_NODELIST | head -n 1)
 export MASTER_PORT=29500  # Choose an unused port
 
 # Generate a hostfile for DeepSpeed manually
-scontrol show hostnames $SLURM_NODELIST > hostfile
+scontrol show hostnames $SLURM_NODELIST | awk '{print $1, "slots=1"}' > hostfile
 
 # Determine node rank (DeepSpeed requires unique ranks per node)
 export NODE_RANK=$SLURM_NODEID  # Unique rank for each node
