@@ -18,14 +18,24 @@ module load pytorch
 export MASTER_ADDR=$(scontrol show hostname $SLURM_NODELIST | head -n 1)
 export MASTER_PORT=29500  # Choose an unused port
 
-# Debug: Print assigned nodes
-echo "Master Node: $MASTER_ADDR"
-echo "Node List: $(scontrol show hostname $SLURM_NODELIST)"
+# Generate a hostfile for DeepSpeed manually
+scontrol show hostnames $SLURM_NODELIST > hostfile
 
-# Run the application with multi-node DeepSpeed
+# Determine node rank (DeepSpeed requires unique ranks per node)
+export NODE_RANK=$SLURM_NODEID  # Unique rank for each node
+
+# Debug: Print assigned nodes and node rank
+echo "Master Node: $MASTER_ADDR"
+echo "Node List: $(cat hostfile)"
+echo "Node Rank: $NODE_RANK"
+
+# Run DeepSpeed separately on each node with correct parameters
 srun --hint=nomultithread \
      --ntasks=8 \
      --cpus-per-task=192 \
      --mem=300GB \
      --cpu-bind=threads \
-     deepspeed --num_gpus 0 --num_nodes 8 inference.py --deepspeed ds_config.json
+     deepspeed --hostfile=hostfile --no-ssh \
+     --num_nodes=8 --node_rank=$NODE_RANK \
+     --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT \
+     inference.py --deepspeed ds_config.json
