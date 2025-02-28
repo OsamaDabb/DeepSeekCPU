@@ -30,11 +30,6 @@ model = ds_engine.module  # Assign the DeepSpeed model back
 # Run inference
 inputs = tokenizer("Hello, world!", return_tensors="pt")
 outputs = model.generate(**inputs)
+print("\n\n\n\n\n\n\nMODEL OUTPUT:\n")
 print(tokenizer.decode(outputs[0]))
-
-
-if dist.get_rank() == 0:
-    with open("result.txt", "w") as f:
-        f.write(outputs)
-
-    print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+print("\n\n\n\n\n\n\n")
