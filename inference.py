@@ -22,8 +22,6 @@ model = AutoModelForCausalLM.from_pretrained(
 # Initialize DeepSpeed with CPU offloading
 ds_engine = deepspeed.init_inference(
     model=model,
-    dtype=torch.float32,
-    replace_with_kernel_inject=False,
     config="ds_config.json"
 )
 
