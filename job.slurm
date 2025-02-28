@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -N 8
+#SBATCH -N 2
 #SBATCH -p ppn
 #SBATCH --mem=2T
 #SBATCH -J Inference-Test
@@ -10,6 +10,7 @@
 
 # OpenMP settings:
 export OMP_NUM_THREADS=1
+PROCESS_COUNT=2
 
 # Load necessary modules
 module load python
@@ -33,10 +34,10 @@ echo "Node Rank: $NODE_RANK"
 
 # Run DeepSpeed separately on each node with correct parameters
 srun --hint=nomultithread \
-     --ntasks=8 \
+     --ntasks=$PROCESS_COUNT \
      --cpus-per-task=192 \
      --cpu-bind=threads \
      deepspeed --hostfile=hostfile --no_ssh \
-     --num_nodes=8 --node_rank=$NODE_RANK \
+     --num_nodes=$PROCESS_COUNT --node_rank=$NODE_RANK \
      --master_addr=$MASTER_ADDR --master_port=$MASTER_PORT \
      inference.py --deepspeed ds_config.json
