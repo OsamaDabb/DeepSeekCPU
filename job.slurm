@@ -6,7 +6,7 @@
 #SBATCH --mail-user=osama.dabbousi@kaust.edu.sa
 #SBATCH --mail-type=NONE
 #SBATCH -A s10002
-#SBATCH -t 01:00:00
+#SBATCH -t 03:00:00
 
 # OpenMP settings:
 export OMP_NUM_THREADS=1
