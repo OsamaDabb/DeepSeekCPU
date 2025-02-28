@@ -1,5 +1,7 @@
 #!/bin/bash
 #SBATCH -N 8
+#SBATCH -p ppn
+#SBATCH --mem=2T
 #SBATCH -J Inference-Test
 #SBATCH --mail-user=osama.dabbousi@kaust.edu.sa
 #SBATCH --mail-type=NONE
@@ -33,7 +35,6 @@ echo "Node Rank: $NODE_RANK"
 srun --hint=nomultithread \
      --ntasks=8 \
      --cpus-per-task=192 \
-     --mem=300GB \
      --cpu-bind=threads \
      deepspeed --hostfile=hostfile --no_ssh \
      --num_nodes=8 --node_rank=$NODE_RANK \
